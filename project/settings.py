@@ -25,6 +25,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'admin_resumable',
+    'shortuuidfield',
+
     'project.files',
     'project.pages'
 )
@@ -153,4 +156,7 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
+ADMIN_RESUMABLE_SHOW_THUMB = True
+ADMIN_RESUMABLE_SUBDIR = 'uploads'
+MEDIA_URL = '/'
