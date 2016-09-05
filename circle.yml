@@ -1,0 +1,22 @@
+machine:
+  python:
+    version: 3.4.2
+  node:
+    version: 5.11.1
+  environment:
+    DEBUG: true
+    DATABASE_URL: postgres://localhost/static-share
+    EMAIL_BACKEND: django.core.mail.backends.console.EmailBackend
+    SECRET_KEY: 123
+    IN_TEST: true
+
+dependencies:
+  pre:
+    - ./build
+  cache_directories:
+    - env
+    - node_modules
+
+test:
+  override:
+    - ./runtests

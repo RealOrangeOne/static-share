@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ -z "$NVM_DIR" ]
+then
+    NVM_DIR="$HOME/.nvm"
+fi
+
+. $NVM_DIR/nvm.sh
+nvm install
+nvm use
+
+set -e
+
+if hash pyenv 2>/dev/null;
+then
+   echo "using pyenv wrapper"
+   pyenv install --skip-existing
+   pyenv exec pyvenv env
+else
+   echo "using pyvenv (Built in python)"
+   pyvenv env
+fi
+
+env/bin/pip install -r requirements.txt
+
+npm install
+npm run build
+
+env/bin/python manage.py collectstatic --noinput

@@ -1,0 +1,4 @@
+DEBUG=true
+DATABASE_URL=sqlite://./database.db
+EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+SECRET_KEY=%*v!183hd8(4j)hg6ylyor34iq_um^&k!0pk_1efn_$j76=so2

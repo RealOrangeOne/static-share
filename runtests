@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+TEST_ARGS=$@
+
+export PATH=env/bin:${PATH}
+
+export IN_TEST=true
+
+coverage run --source=project --omit='*/wsgi.py,*/settings.py,*/migrations/*.py,*__init__*,*/tests.py' manage.py test $TEST_ARGS
+flake8 project --ignore=E128,E501 --exclude="migrations,*/wsgi.py"
+coverage report
+coverage html
+
+npm test

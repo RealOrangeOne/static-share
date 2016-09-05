@@ -1,0 +1,43 @@
+{
+  "name": "share-static",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "eslint 'static/src/js/'",
+    "create-build-dirs": "mkdir -p static/build/js static/build/css static/build/fonts static/build/img",
+    "build-scss": "bash scripts/build-scss.sh",
+    "build-js": "bash scripts/build-js.sh",
+    "build-fonts": "cp -R node_modules/bootstrap-sass/assets/fonts/bootstrap/* static/build/fonts/ && cp -R node_modules/font-awesome/fonts static/build",
+    "build": "npm run create-build-dirs && npm run build-scss && npm run build-js && npm run build-fonts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RealOrangeOne/static-share.git"
+  },
+  "author": "TheOrangeOne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RealOrangeOne/static-share/issues"
+  },
+  "homepage": "https://github.com/RealOrangeOne/static-share#readme",
+  "dependencies": {
+    "bootstrap-sass": "=3.3.7",
+    "font-awesome": "=4.6.3",
+    "jquery": "=2.1.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "=6.3.7",
+    "babel-preset-es2015": "=6.9.0",
+    "babelify": "=7.3.0",
+    "browserify": "=13.1.0",
+    "clean-css": "=3.4.19",
+    "eslint": "=1.5.0",
+    "eslint-config": "git://github.com/dabapps/eslint-config.git",
+    "node-sass": "=3.8.0",
+    "postcss-cli": "=2.5.2",
+    "sass-lint": "=1.8.2",
+    "uglify-js": "=2.7.0"
+  }
+}
