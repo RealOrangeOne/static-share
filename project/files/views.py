@@ -2,8 +2,13 @@ from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from .models import SharedFile, FileToken
-import datetime
+import mimetypes
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+
+
+mimetypes.init()
 
 
 class SharedFileDetails(TemplateView):
@@ -16,10 +21,22 @@ class SharedFileDetails(TemplateView):
         return context
 
 
-def file_download(request, token, id):
+def FileResponse(file):
+    response = HttpResponse(file.file)
+    response['Content-Type'] = mimetypes.guess_type(file.get_original_filename())[0]
+    response['Content-Disposition'] = 'attachment; filename="{0}"'.format(file.get_original_filename())
+    return response
+
+
+def file_download(request, id, token):
     time_threshold = timezone.now() - FileToken.valid_time
     FileToken.objects.filter(created__lt=time_threshold)
-    file = get_object_or_404(SharedFile, short_id=id)
+    file = get_object_or_404(SharedFile, short_id=id, published=True)
     token = get_object_or_404(FileToken, token=token, file=file)
     token.delete()  # delete after used
-    return HttpResponse(file.file.name)
+    return FileResponse(file)
+
+
+def hotlink_file_download(request, id):
+    file = get_object_or_404(SharedFile, short_id=id, hotlink=True, published=True)
+    return FileResponse(file)

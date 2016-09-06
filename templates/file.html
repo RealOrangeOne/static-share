@@ -5,4 +5,5 @@
 {% block content %}
   <h1>{{ file }}</h1>
   <h1>{{ token.token }}</h1>
+  <h2>{% url 'files:file_download' file.short_id token.token %}</h2>
 {% endblock %}
