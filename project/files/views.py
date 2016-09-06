@@ -46,5 +46,4 @@ def hotlink_file_download(request, id):
 def uploaded_file(request, filename):
     file = get_object_or_404(SharedFile, file=request.get_full_path()[1:])  # strip preceding slash
     response = FileResponse(file)
-    del response['Content-Disposition']
     return response
