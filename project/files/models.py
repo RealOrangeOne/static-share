@@ -3,28 +3,27 @@ import os
 import uuid
 from admin_resumable.fields import ModelAdminResumableFileField
 from shortuuidfield import ShortUUIDField
-
-
-def build_save_path(obj, filename):
-    return obj.get_save_path(filename)
+from datetime import timedelta
 
 
 class SharedFile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     short_id = ShortUUIDField()
     created = models.DateTimeField(auto_now_add=True)
-    file = ModelAdminResumableFileField(upload_to=build_save_path)
+    file = ModelAdminResumableFileField()
     hotlink = models.BooleanField(default=False)
     published = models.BooleanField(default=True)
 
-    filename = ""
-
-    def get_save_path(self, filename):
-        self.filename = filename
-        return os.path.join(str(self.id), str(self.short_id), filename)
-
-    def get_private_path(self):
-        return self.get_save_path(self.filename)
-
     def get_original_filename(self):
         return "_".join(self.file.name.split('_')[1:])
+
+
+class FileToken(models.Model):
+    valid_time = timedelta(minutes=5)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    token = ShortUUIDField()
+    file = models.ForeignKey(SharedFile, null=False, blank=False, related_name="tokens")
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Token for {0} created at {1}".format(self.file.file.name, self.created)
