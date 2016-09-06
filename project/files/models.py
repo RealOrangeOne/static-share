@@ -4,6 +4,8 @@ from admin_resumable.fields import ModelAdminResumableFileField
 from shortuuidfield import ShortUUIDField
 from datetime import timedelta
 from django.core.urlresolvers import reverse
+import os.path
+from django.conf import settings
 
 
 class SharedFile(models.Model):
@@ -22,6 +24,12 @@ class SharedFile(models.Model):
 
     def get_absolute_url(self):
         return reverse('files:file', args=(self.short_id,))
+
+    def get_type_image(self):
+        extension = self.get_original_filename().split('.')[-1]
+        icon_file = os.path.join(settings.STATICFILES_DIRS[0], 'img', 'icons', "{0}.png".format(extension))
+        filename = extension if os.path.exists(icon_file) else "_page"
+        return os.path.join(settings.STATIC_URL, 'img', 'icons', "{0}.png".format(filename))
 
 
 class FileToken(models.Model):

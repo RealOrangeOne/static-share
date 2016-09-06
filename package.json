@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint",
     "lint": "eslint 'static/src/js/'",
-    "create-build-dirs": "mkdir -p static/build/js static/build/css static/build/fonts static/build/img",
+    "create-build-dirs": "mkdir -p static/build/js static/build/css static/build/fonts static/build/img/icons",
     "build-scss": "bash scripts/build-scss.sh",
     "build-js": "bash scripts/build-js.sh",
     "build-fonts": "cp -R node_modules/bootstrap-sass/assets/fonts/bootstrap/* static/build/fonts/ && cp -R node_modules/font-awesome/fonts static/build",

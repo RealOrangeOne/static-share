@@ -26,4 +26,10 @@ env/bin/pip install -r requirements.txt
 npm install
 npm run build
 
+echo "Getting icons..."
+git clone git@github.com:teambox/Free-file-icons static/build/img/temp || echo "already exists"
+cp static/build/img/temp/512px/* static/build/img/icons/
+rm -rf static/build/img/temp
+
+
 env/bin/python manage.py collectstatic --noinput
