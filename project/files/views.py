@@ -40,3 +40,11 @@ def file_download(request, id, token):
 def hotlink_file_download(request, id):
     file = get_object_or_404(SharedFile, short_id=id, hotlink=True, published=True)
     return FileResponse(file)
+
+
+@login_required
+def uploaded_file(request, filename):
+    file = get_object_or_404(SharedFile, file=request.get_full_path()[1:])  # strip preceding slash
+    response = FileResponse(file)
+    del response['Content-Disposition']
+    return response
