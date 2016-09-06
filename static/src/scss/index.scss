@@ -2,8 +2,33 @@
 
 $icon-font-path: "../fonts/";
 @import "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "node_modules/bootstrap-material-design/dist/css/bootstrap-material-design";
+
 
 $fa-font-path: $icon-font-path;
 @import "node_modules/font-awesome/scss/font-awesome";
 
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,700,300,300italic,400italic,700italic");
+
+
+#section-wrapper {
+  padding: 50px 0;
+}
+
+.thumbnail.file {
+  text-align: center;
+  padding: 20px;
+  img {
+    width: 300px;
+  }
+  .btn {
+    border-radius: 0;
+  }
+}
+
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

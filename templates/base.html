@@ -8,7 +8,16 @@
   <script src="{% static 'js/jquery.js' %}"></script>
 </head>
 <body>
-  {% block content %}{% endblock %}
+  <section id="section-wrapper">
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <p>Powered by Static-Share</p>
+    </div>
+  </footer>
   <script src="{% static 'js/app.js' %}"></script>
 </body>
 </html>
