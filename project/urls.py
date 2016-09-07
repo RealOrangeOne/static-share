@@ -13,5 +13,3 @@ urlpatterns = [
 
 
 urlpatterns += staticfiles_urlpatterns()
-
-admin.site.site_title = "Static Share"
