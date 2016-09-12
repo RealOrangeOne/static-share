@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
+from django.http import FileResponse as BaseFileResponse
 from .models import SharedFile, FileToken
 import mimetypes
 from django.utils import timezone
@@ -21,7 +21,7 @@ class SharedFileDetails(TemplateView):
 
 
 def FileResponse(file):
-    response = HttpResponse(file.file)
+    response = BaseFileResponse(file.file)
     response['Content-Type'] = mimetypes.guess_type(file.get_original_filename())[0]
     response['Content-Disposition'] = 'attachment; filename="{0}"'.format(file.get_original_filename())
     return response
